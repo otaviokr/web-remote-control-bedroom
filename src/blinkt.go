@@ -138,10 +138,12 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		}
 	}
 
-	str := ""
+	messageSlice := []string{}
 	for _, pixel := range p {
-		str = fmt.Sprintf("%s #%d#%d#%d#%f", str, pixel.R, pixel.G, pixel.B, pixel.Brightness)
+		messageSlice = append(messageSlice, fmt.Sprintf("#%d#%d#%d#%f", pixel.R, pixel.G, pixel.B, pixel.Brightness))
 	}
+
+	str := strings.Join(messageSlice, " ")
 	log.WithFields(
 		log.Fields{
 			"Message": str,
